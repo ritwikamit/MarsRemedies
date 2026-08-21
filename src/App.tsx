@@ -23,11 +23,10 @@ export function App() {
   const [activeProductDetail, setActiveProductDetail] = useState<Product | null>(null);
   const [enquiryProduct, setEnquiryProduct] = useState<string>('');
 
-  // Handle URL hash routing
+  // Handle URL path routing (clean URLs: /products, /about, /product/slug)
   useEffect(() => {
-    const handleHashChange = () => {
-      const fullHash = window.location.hash.replace('#', '').trim();
-      const parts = fullHash.split('/');
+    const parsePath = (path: string) => {
+      const parts = path.replace(/^\/+|\/+$/g, '').split('/');
       const route = parts[0]?.toLowerCase() || 'home';
 
       if (['product', 'products'].includes(route) && parts[1]) {
@@ -49,14 +48,16 @@ export function App() {
       }
     };
 
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    parsePath(window.location.pathname);
+    const handlePopState = () => parsePath(window.location.pathname);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   const navigateTo = useCallback((page: PageView) => {
     setCurrentPage(page);
-    window.location.hash = page === 'home' ? '' : page;
+    const path = page === 'home' ? '/' : `/${page}`;
+    window.history.pushState({}, '', path);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
