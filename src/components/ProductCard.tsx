@@ -65,7 +65,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Action Controls - Aligned strictly at bottom */}
-        <div className="mt-4 pt-3.5 border-t border-slate-100 dark:border-slate-800 flex items-center gap-2">
+        <div className="mt-4 pt-3.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-center gap-3">
           <button
             onClick={() => onViewDetails(product)}
             className="grow inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
