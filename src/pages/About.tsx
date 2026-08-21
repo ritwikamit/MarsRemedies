@@ -26,7 +26,7 @@ export const About: React.FC<AboutPageProps> = ({ onNavigate }) => {
         {/* Header with Official Logo Showcase */}
         <div className="border-b border-slate-200 dark:border-slate-800 pb-8 text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center justify-center p-4 sm:p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm mx-auto">
-            <Logo size="lg" variant="auto" showTagline={true} />
+            <Logo size="lg" variant="auto" showTagline={false} />
           </div>
 
           <div className="pt-2">

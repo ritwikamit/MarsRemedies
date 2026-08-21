@@ -133,7 +133,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCategory }) => {
               {/* Showcase Header */}
               <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div className="shrink-0">
-                  <Logo size="sm" variant="auto" showTagline={true} />
+                  <Logo size="sm" variant="auto" showTagline={false} />
                 </div>
                 <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 rounded-full shrink-0">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
