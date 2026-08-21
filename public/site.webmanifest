@@ -1,0 +1,17 @@
+{
+  "name": "Mars Remedies",
+  "short_name": "Mars Remedies",
+  "description": "Quality-driven pharmaceutical company - Committed to serve better Healthcare",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#002060",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
