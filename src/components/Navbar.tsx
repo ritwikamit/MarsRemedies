@@ -125,7 +125,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="flex items-center focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#002060] dark:focus-visible:ring-blue-400 focus-visible:ring-offset-2 rounded-lg cursor-pointer text-left shrink-0 py-0.5"
               aria-label="Mars Remedies Home"
             >
-              <Logo size="md" variant="auto" showTagline={true} className="max-w-[170px] xs:max-w-[210px] sm:max-w-[250px]" />
+              <Logo size="md" variant="auto" showTagline={false} className="max-w-none" />
             </button>
 
             {/* Zone 2: Navigation Links (Tablet Landscape & Desktop) */}

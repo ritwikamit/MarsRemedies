@@ -11,7 +11,7 @@ interface LogoProps {
 export const Logo: React.FC<LogoProps> = ({
   variant = 'auto',
   size = 'md',
-  showTagline = true,
+  showTagline = false,
   className = '',
 }) => {
   // Try using ThemeContext safely if available
@@ -25,13 +25,13 @@ export const Logo: React.FC<LogoProps> = ({
 
   const isDarkSurface = variant === 'dark' || (variant === 'auto' && isGlobalDark);
 
-  // Sizing styles to ensure the full logo width & height are never clipped across mobile, tablet, and desktop
-  const widthClasses = {
-    sm: 'w-[135px] xs:w-[150px] sm:w-[175px]',
-    md: 'w-[170px] xs:w-[200px] sm:w-[240px]',
-    lg: 'w-[240px] xs:w-[280px] sm:w-[340px]',
-    xl: 'w-[300px] xs:w-[380px] sm:w-[480px]',
-    custom: 'w-auto',
+  // Size classes for the logo IMAGE only (not including tagline)
+  const sizeClasses = {
+    sm: 'h-8 xs:h-9 sm:h-10',
+    md: 'h-10 xs:h-11 sm:h-12',
+    lg: 'h-14 xs:h-16 sm:h-20',
+    xl: 'h-18 xs:h-22 sm:h-28',
+    custom: 'h-auto',
   }[size];
 
   // Tagline color based on theme
@@ -39,27 +39,20 @@ export const Logo: React.FC<LogoProps> = ({
 
   return (
     <div
-      className={`inline-flex items-center justify-start shrink-0 select-none max-w-full ${widthClasses} ${className}`}
+      className={`inline-flex items-center justify-start shrink-0 select-none ${className}`}
     >
       <div className="flex items-center gap-2 sm:gap-3">
-        {/* Logo Image - uses logo.svg or logo.png from public folder */}
+        {/* Logo Image - uses logo.png from public folder */}
         <img
-          src="/logo.svg"
-          alt="Mars Remedies - Committed to serve better Healthcare"
-          className="w-full h-auto block transition-opacity duration-200"
-          onError={(e) => {
-            // Fallback to PNG if SVG fails
-            const target = e.target as HTMLImageElement;
-            if (target.src.endsWith('.svg')) {
-              target.src = '/logo.png';
-            }
-          }}
+          src="/logo.png"
+          alt="Mars Remedies"
+          className={`${sizeClasses} w-auto h-auto block transition-opacity duration-200 object-contain`}
         />
         
         {/* Optional Tagline */}
         {showTagline && (
           <span
-            className="hidden sm:inline-block text-sm sm:text-base font-bold italic leading-tight transition-colors duration-200 select-none"
+            className="hidden sm:inline-block text-sm sm:text-base font-bold italic leading-tight transition-colors duration-200 select-none whitespace-nowrap"
             style={{ color: taglineColor }}
           >
             Committed to serve better Healthcare

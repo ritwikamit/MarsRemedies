@@ -43,10 +43,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectCategory }) 
           <div className="lg:col-span-4 space-y-4">
             <button
               onClick={() => onNavigate('home')}
-              className="text-left focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-400 rounded-xl cursor-pointer bg-white p-2.5 sm:p-3 inline-flex shadow-sm"
+              className="text-left focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-400 rounded-xl cursor-pointer p-0 inline-flex"
               aria-label="Mars Remedies Home"
             >
-              <Logo variant="light" size="md" showTagline={true} />
+              <Logo variant="dark" size="lg" showTagline={true} />
             </button>
 
             <p className="text-xs text-slate-300 leading-relaxed max-w-sm pt-2">
