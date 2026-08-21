@@ -41,12 +41,12 @@ export const Logo: React.FC<LogoProps> = ({
     <div
       className={`inline-flex items-center justify-start shrink-0 select-none ${className}`}
     >
-      <div className="flex items-center gap-2 sm:gap-3">
+      <div className="flex items-center gap-2 sm:gap-3 min-w-0">
         {/* Logo Image - uses logo.png from public folder */}
         <img
           src="/logo.png"
           alt="Mars Remedies"
-          className={`${sizeClasses} w-auto h-auto block transition-opacity duration-200 object-contain`}
+          className={`${sizeClasses} w-auto max-w-[140px] sm:max-w-[180px] md:max-w-[220px] lg:max-w-[280px] h-auto block transition-opacity duration-200 object-contain shrink-0`}
         />
         
         {/* Optional Tagline */}

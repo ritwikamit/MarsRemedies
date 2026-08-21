@@ -5,6 +5,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Prevent horizontal scroll */
+    overflow-x: hidden;
   }
   
   body {
@@ -14,11 +16,31 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.3s ease, color 0.3s ease;
+    /* Improve touch scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
   }
 
   html.dark body {
     background-color: #050b18;
     color: #f1f5f9;
+  }
+  
+  /* Touch target minimum size */
+  button, a, [role="button"], input[type="button"], input[type="submit"], select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Prevent zoom on input focus on iOS */
+  @media screen and (max-width: 768px) {
+    input, select, textarea {
+      font-size: 16px !important;
+    }
+  }
+  
+  /* Better tap highlighting on mobile */
+  * {
+    -webkit-tap-highlight-color: rgba(0, 32, 96, 0.2);
   }
 }
 

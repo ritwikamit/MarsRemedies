@@ -123,9 +123,9 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCategory }) => {
             </div>
           </div>
 
-          {/* Right Column: Interactive Animated Showcase Card */}
-          <div className="lg:col-span-5">
-            <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl p-5 sm:p-7 relative overflow-hidden transition-colors">
+{/* Right Column: Interactive Animated Showcase Card */}
+              <div className="lg:col-span-5 lg:block hidden">
+                <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl p-5 sm:p-7 relative overflow-hidden transition-colors">
               
               {/* Decorative Background Gradient Ribbon */}
               <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-blue-500/10 dark:from-blue-600/20 via-transparent to-transparent pointer-events-none rounded-tr-2xl" />
