@@ -1,36 +1,27 @@
 import React from 'react';
-import { GlassCross3D } from './GlassCross3D';
+import { Logo } from './Logo';
 
 export const Preloader: React.FC = () => {
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-gradient-to-br from-[#001233] via-[#002060] to-[#001233] preloader-exit">
-      {/* Ambient glow */}
-      <div className="absolute w-72 h-72 rounded-full bg-red-500/15 blur-3xl animate-pulse-glow" />
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-8 bg-gradient-to-br from-[#001233] via-[#002060] to-[#001233] preloader-exit">
+      {/* Ambient glows */}
+      <div className="absolute w-80 h-80 rounded-full bg-blue-500/10 blur-3xl animate-pulse-glow" />
+      <div className="absolute w-56 h-56 rounded-full bg-red-500/10 blur-3xl animate-pulse-glow" style={{ animationDelay: '1.4s' }} />
 
-      <GlassCross3D size={96} />
+      {/* Logo card */}
+      <div className="preloader-card relative rounded-2xl bg-white/95 backdrop-blur px-7 py-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)] border border-white/40">
+        <Logo size="lg" variant="light" showTagline={false} />
+      </div>
 
-      <div className="relative text-center space-y-2">
-        <h1 className="text-xl sm:text-2xl font-extrabold tracking-wide text-white">
-          MARS <span className="text-red-400">REMEDIES</span>
-        </h1>
-        <p className="text-[11px] sm:text-xs text-blue-200/80 italic">
+      {/* Brand line */}
+      <div className="relative text-center space-y-1.5 -mt-2">
+        <p className="text-[11px] sm:text-xs text-blue-200/70 italic tracking-wide">
           Committed to serve better Healthcare
         </p>
       </div>
 
-      {/* Loading dots */}
-      <div className="flex items-center gap-2">
-        {[0, 1, 2].map((i) => (
-          <span
-            key={i}
-            className="w-2 h-2 rounded-full bg-blue-300 animate-bounce"
-            style={{ animationDelay: `${i * 0.15}s` }}
-          />
-        ))}
-      </div>
-
       {/* Progress shimmer bar */}
-      <div className="w-44 h-1 rounded-full bg-white/10 overflow-hidden">
+      <div className="relative w-48 h-[3px] rounded-full bg-white/10 overflow-hidden">
         <div className="h-full w-1/2 rounded-full bg-gradient-to-r from-transparent via-red-400 to-transparent preloader-bar" />
       </div>
     </div>

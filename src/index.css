@@ -144,18 +144,23 @@ html.dark .bg-pharma-dots {
 
 /* ===== 3D Glass Red Cross ===== */
 .cross-scene {
-  perspective: 900px;
+  perspective: 1100px;
   display: inline-block;
 }
 
 .cross-float {
   position: relative;
-  animation: float-y 5.5s ease-in-out infinite;
+  animation: float-y 6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.cross-tilt {
+  transform-style: preserve-3d;
+  transform: rotateX(12deg);
 }
 
 .cross-spin {
   transform-style: preserve-3d;
-  animation: cross-spin-y 8s linear infinite;
+  animation: cross-spin-y 11s linear infinite;
 }
 
 .glass-bar {
@@ -163,7 +168,7 @@ html.dark .bg-pharma-dots {
   overflow: hidden;
 }
 
-/* Moving shine sweep across the glass bars */
+/* Moving shine sweep across the front glass face */
 .glass-bar::after {
   content: '';
   position: absolute;
@@ -171,24 +176,25 @@ html.dark .bg-pharma-dots {
   border-radius: inherit;
   background: linear-gradient(
     115deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.55) 46%,
+    transparent 32%,
+    rgba(255, 255, 255, 0.5) 47%,
     transparent 62%
   );
   background-size: 250% 250%;
-  animation: shine-sweep 3.6s ease-in-out infinite;
+  animation: shine-sweep 4.2s ease-in-out infinite;
 }
 
 .cross-glow {
   position: absolute;
   left: 50%;
-  bottom: -20px;
+  bottom: -22px;
   transform: translateX(-50%);
-  width: 72%;
-  height: 16px;
+  width: 74%;
+  height: 18px;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(225, 29, 39, 0.45), transparent 70%);
-  filter: blur(4px);
+  background: radial-gradient(ellipse, rgba(225, 29, 39, 0.4), transparent 70%);
+  filter: blur(5px);
+  animation: glow-breathe 6s ease-in-out infinite;
 }
 
 @keyframes cross-spin-y {
@@ -198,7 +204,7 @@ html.dark .bg-pharma-dots {
 
 @keyframes float-y {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  50% { transform: translateY(-14px); }
 }
 
 @keyframes shine-sweep {
@@ -206,13 +212,38 @@ html.dark .bg-pharma-dots {
   55%, 100% { background-position: -50% 0; }
 }
 
+@keyframes glow-breathe {
+  0%, 100% { opacity: 0.55; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.12); }
+}
+
 /* ===== Preloader ===== */
 .preloader-exit {
-  animation: preloader-fade 0.45s ease 1.2s forwards;
+  animation: preloader-fade 0.5s ease 1.35s forwards;
+}
+
+.preloader-card {
+  position: relative;
+  overflow: hidden;
+  animation: card-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.preloader-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(37, 99, 235, 0.12) 50%,
+    transparent 60%
+  );
+  background-size: 250% 250%;
+  animation: shine-sweep 2s ease-in-out infinite;
 }
 
 .preloader-bar {
-  animation: preloader-slide 1.1s ease-in-out infinite;
+  animation: preloader-slide 1.15s ease-in-out infinite;
 }
 
 @keyframes preloader-fade {
@@ -225,6 +256,11 @@ html.dark .bg-pharma-dots {
 @keyframes preloader-slide {
   0% { transform: translateX(-110%); }
   100% { transform: translateX(230%); }
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 /* Print Styles for Product Catalogue */
