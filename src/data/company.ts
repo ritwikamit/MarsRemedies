@@ -2,13 +2,13 @@ export const COMPANY_CONFIG = {
   name: 'Mars Remedies',
   legalName: 'Mars Remedies Pharmaceuticals',
   tagline: 'Committed to serve better Healthcare',
-  email: 'marsremedies580@gmail.com',
+  email: 'mascospharma1977@gmail.com',
   /**
    * Official phone configuration. Update this value when an official line is assigned.
    * If set to 'REPLACE_WITH_OFFICIAL_NUMBER', the UI will gracefully provide direct email inquiry
    * or a prompt to connect with company management.
    */
-  phone: 'REPLACE_WITH_OFFICIAL_NUMBER',
+  phone: '9931431044',
   
   offices: {
     patna: {
@@ -25,13 +25,13 @@ export const COMPANY_CONFIG = {
     baddi: {
       type: 'Head Office (H.O.)',
       title: 'Baddi Corporate & Operations Hub',
-      addressLine1: 'Gulrawala Road, Baddi',
-      addressLine2: 'Distt. Solan, Himachal Pradesh - 173205',
+      addressLine1: 'KHASRA NO-2272/1896 OPP UNICHEM, LABORATORIES VARDMAN ROAD',
+      addressLine2: 'BHATOULI KALA',
       state: 'Himachal Pradesh',
-      pin: '173205',
+      pin: '',
       country: 'India',
-      fullAddress: 'Gulrawala Road, Baddi, Distt. Solan, Himachal Pradesh - 173205, India',
-      googleMapsUrl: 'https://maps.google.com/?q=Gulrawala+Road+Baddi+Distt+Solan+Himachal+Pradesh+173205',
+      fullAddress: 'KHASRA NO-2272/1896 OPP UNICHEM, LABORATORIES VARDMAN ROAD. BHATOULI KALA. BADDI (HP)',
+      googleMapsUrl: 'https://maps.google.com/?q=KHASRA+NO-2272%2F1896+OPP+UNICHEM+LABORATORIES+VARDMAN+ROAD+BHATOULI+KALA+BADDI+HP',
       role: 'Batch coordination, packaging, quality control assurance & regional logistics.',
     },
   },
