@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 520" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@1,800;1,900&amp;family=Inter:ital,wght@1,600;1,700&amp;display=swap');
+
+      .mars-main-title {
+        font-family: 'Plus Jakarta Sans', 'Arial Black', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-weight: 900;
+        font-style: italic;
+        fill: #002277;
+      }
+
+      .mars-tagline-text {
+        font-family: 'Plus Jakarta Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-weight: 700;
+        font-style: italic;
+        fill: #002277;
+      }
+    </style>
+  </defs>
+
+  <!-- Background is transparent to fit any surface seamlessly -->
+
+  <!-- Top Wordmark: MARS REMEDIES -->
+  <!-- Letter M -->
+  <g class="mars-main-title">
+    <text x="50" y="260" font-size="240" letter-spacing="-3px">M</text>
+
+    <!-- Custom Stylized 'A' with Integrated Slanted Red Cross -->
+    <g transform="skewX(-14)">
+      <!-- Left leg of A (Navy) -->
+      <polygon points="340,260 400,260 445,65 385,65" fill="#002277" />
+      
+      <!-- Right leg of A (Navy) -->
+      <polygon points="405,65 465,65 520,260 460,260" fill="#002277" />
+
+      <!-- Center Red Medical Cross (Red #E11A27) -->
+      <!-- Vertical bar -->
+      <rect x="410" y="85" width="44" height="150" rx="3" fill="#E11A27" />
+      <!-- Horizontal bar -->
+      <rect x="372" y="132" width="120" height="46" rx="3" fill="#E11A27" />
+    </g>
+
+    <!-- RS -->
+    <text x="510" y="260" font-size="240" letter-spacing="-5px">RS</text>
+
+    <!-- Space + REMEDIES -->
+    <text x="840" y="260" font-size="240" letter-spacing="-4px">REMEDIES</text>
+  </g>
+
+  <!-- Dynamic Curved Underline Swoosh -->
+  <!-- Tapers on left, sweeps under MARS REMEDIES, and tapers smoothly at right end -->
+  <path
+    d="M 40,328 C 380,300 1050,285 1560,296 C 1050,270 380,286 40,328 Z"
+    fill="#002277"
+  />
+
+  <!-- Tagline: Committed to serve better Healthcare -->
+  <text
+    x="490"
+    y="435"
+    font-size="82"
+    class="mars-tagline-text"
+    letter-spacing="0.4px"
+  >
+    Committed to serve better Healthcare
+  </text>
+</svg>

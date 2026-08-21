@@ -1,0 +1,6 @@
+{
+  "name": "Mars Remedies",
+  "description": "Corporate pharmaceutical product catalogue and website for Mars Remedies - Committed to serve better Healthcare.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
