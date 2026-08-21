@@ -60,6 +60,22 @@ export function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
+  // Dynamic document title per route (improves UX & share previews)
+  useEffect(() => {
+    const titles: Record<string, string> = {
+      home: 'Mars Remedies | Committed to serve better Healthcare',
+      products: 'Products Catalogue | Mars Remedies',
+      categories: 'Therapeutic Categories | Mars Remedies',
+      about: 'About Mars Remedies | Our Mission & Quality',
+      contact: 'Contact Mars Remedies | PCD Franchise & Trade Enquiry',
+      privacy: 'Privacy Policy | Mars Remedies',
+      terms: 'Terms of Service | Mars Remedies',
+      'product-detail': 'Product Details | Mars Remedies',
+      'not-found': 'Page Not Found | Mars Remedies',
+    };
+    document.title = titles[currentPage] ?? titles.home;
+  }, [currentPage]);
+
   const handleSelectCategory = (cat: ProductCategory) => {
     setSelectedCategory(cat);
     setSearchQuery('');
