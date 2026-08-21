@@ -152,7 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </nav>
 
             {/* Zone 3: Primary Actions (Dark Mode Toggle, Enquiry, Mobile/Tablet Menu) */}
-            <div className="flex items-center gap-1.5 xs:gap-2 sm:gap-3 shrink-0">
+            <div className="flex items-center gap-1.5 xs:gap-2 sm:gap-3 xs:justify-center sm:justify-center justify-start shrink-0">
               
               {/* Dark Mode Toggle Button */}
               <button
