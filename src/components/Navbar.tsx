@@ -132,41 +132,42 @@ export const Navbar: React.FC<NavbarProps> = ({
             <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5" aria-label="Main Navigation">
               {navLinks.map((link) => {
                 const isActive = currentPage === link.page;
+                const IconComponent = link.icon;
                 return (
                   <button
                     key={link.page}
                     onClick={() => handleNav(link.page)}
-                    className={`relative px-3 py-2 text-xs xl:text-sm font-bold tracking-wide rounded-xl transition-all duration-150 whitespace-nowrap cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#002060] dark:focus-visible:ring-blue-400 ${
+                    className={`relative flex items-center gap-1.5 px-3 py-2 text-xs xl:text-sm font-semibold tracking-wide rounded-xl transition-all duration-150 whitespace-nowrap cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#002060] dark:focus-visible:ring-blue-400 ${
                       isActive
                         ? 'text-[#002060] dark:text-blue-400 bg-blue-50/90 dark:bg-blue-950/80 shadow-2xs font-extrabold ring-1 ring-blue-200/80 dark:ring-blue-800/80'
-                        : 'text-slate-700 dark:text-slate-300 hover:text-[#002060] dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80 font-semibold'
+                        : 'text-slate-700 dark:text-slate-300 hover:text-[#002060] dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
                     }`}
                   >
-                    {link.label}
-                    {isActive && (
-                      <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#002060] dark:bg-blue-400 rounded-full" />
-                    )}
+                    <IconComponent className="w-4 h-4 shrink-0" />
+                    <span>{link.label}</span>
                   </button>
                 );
               })}
             </nav>
 
             {/* Zone 3: Primary Actions (Dark Mode Toggle, Enquiry, Mobile/Tablet Menu) */}
-            <div className="flex items-center gap-1.5 xs:gap-2 sm:gap-3 xs:justify-center sm:justify-center justify-start shrink-0">
+            <div className="flex items-center gap-1.5 xs:gap-2 sm:gap-3 shrink-0">
               
-              {/* Dark Mode Toggle Button */}
-              <button
-                onClick={toggleTheme}
-                className="p-2 sm:p-2.5 rounded-xl text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer border border-slate-200/80 dark:border-slate-700/80 shrink-0"
-                title={isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
-                aria-label="Toggle theme mode"
-              >
-                {isDark ? (
-                  <Sun className="w-4 h-4 text-amber-400 animate-spin-once" />
-                ) : (
-                  <Moon className="w-4 h-4 text-blue-900" />
-                )}
-              </button>
+              {/* Dark Mode Toggle Button - centered within its own block on mobile/tablet */}
+              <div className="flex items-center justify-center xs:justify-center sm:justify-center">
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 sm:p-2.5 rounded-xl text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer border border-slate-200/80 dark:border-slate-700/80 shrink-0 flex items-center justify-center"
+                  title={isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+                  aria-label="Toggle theme mode"
+                >
+                  {isDark ? (
+                    <Sun className="w-4 h-4 text-amber-400 animate-spin-once" />
+                  ) : (
+                    <Moon className="w-4 h-4 text-blue-900" />
+                  )}
+                </button>
+              </div>
 
               {/* Desktop / Large Tablet Trade Enquiry Button */}
               <button
