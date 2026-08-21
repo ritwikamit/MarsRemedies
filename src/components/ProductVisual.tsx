@@ -299,7 +299,7 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
               <polygon points="0,15 5,18 0,21" fill="#0891b2" />
               {/* Sachet Graphics */}
               <rect x="6" y="6" width="63" height="14" fill="#0891b2" rx="2" />
-              <text x="12" y="17" fontSize="8" fill="#ffffff" fontWeight="bold">MARS ENERGY</text>
+              <text x="12" y="17" fontSize="8" fill="#ffffff" fontWeight="bold">{brandName.slice(0, 11).toUpperCase()}</text>
               <rect x="8" y="28" width="55" height="3" fill="#002060" rx="1" />
               <rect x="8" y="35" width="42" height="2" fill="#64748b" rx="0.5" />
               <rect x="8" y="40" width="48" height="2" fill="#64748b" rx="0.5" />
@@ -325,14 +325,14 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
               <rect x="105" y="2" width="8" height="28" fill="#ddd6fe" stroke="#7c3aed" strokeWidth="1" />
               {/* Branding Strip */}
               <polygon points="35,10 95,5 95,27 35,22" fill="#7c3aed" />
-              <text x="42" y="19" fontSize="8" fill="#ffffff" fontWeight="bold">DERMA-CARE</text>
+              <text x="42" y="19" fontSize="8" fill="#ffffff" fontWeight="bold">{brandName.slice(0, 10).toUpperCase()}</text>
             </g>
 
             {/* Medicated Soap Bar */}
             <g transform="translate(130, 60)">
               <rect x="0" y="0" width="70" height="42" rx="10" fill="#fdf4ff" stroke="#c084fc" strokeWidth="1.5" />
               <ellipse cx="35" cy="21" rx="26" ry="12" fill="#fae8ff" stroke="#e879f9" strokeWidth="1" />
-              <text x="18" y="24" fontSize="8" fill="#86198f" fontWeight="bold">MEDICATED</text>
+              <text x="18" y="24" fontSize="8" fill="#86198f" fontWeight="bold">{brandName.slice(0, 10).toUpperCase()}</text>
             </g>
           </svg>
         )}
@@ -387,6 +387,15 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
             </g>
           </svg>
         )}
+      </div>
+
+      {/* Brand Name Nameplate - written on the pack */}
+      <div className="absolute top-2.5 left-2.5 z-20 max-w-[60%]">
+        <div className="px-2.5 py-1 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200/70 dark:border-slate-700 shadow-sm">
+          <span className="block text-[11px] sm:text-xs font-extrabold tracking-wide text-[#002060] dark:text-blue-300 truncate uppercase">
+            {brandName}
+          </span>
+        </div>
       </div>
 
       {/* Floating Badges for Pack Size & Quality */}

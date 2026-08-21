@@ -14,6 +14,7 @@ import { NotFound } from './pages/NotFound';
 import { PRODUCTS, getProductBySlug } from './data/products';
 import { PageView, Product, ProductCategory } from './types';
 import { ThemeProvider } from './context/ThemeContext';
+import { Preloader } from './components/Preloader';
 
 export function App() {
   const [currentPage, setCurrentPage] = useState<PageView>('home');
@@ -22,6 +23,12 @@ export function App() {
   const [modalProduct, setModalProduct] = useState<Product | null>(null);
   const [activeProductDetail, setActiveProductDetail] = useState<Product | null>(null);
   const [enquiryProduct, setEnquiryProduct] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1700);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Handle URL path routing (clean URLs: /products, /about, /product/slug)
   useEffect(() => {
@@ -103,6 +110,7 @@ export function App() {
 
   return (
     <ThemeProvider>
+      {isLoading && <Preloader />}
       <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-[#050b18] text-slate-900 dark:text-slate-100 font-sans antialiased transition-colors duration-300">
         {/* 1. Navbar */}
         <Navbar

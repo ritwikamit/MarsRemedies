@@ -3,6 +3,7 @@ import { PageView, ProductCategory, Product } from '../types';
 import { CATEGORIES, CATEGORY_DETAILS, PRODUCTS } from '../data/products';
 import { Logo } from './Logo';
 import { ProductVisual } from './ProductVisual';
+import { GlassCross3D } from './GlassCross3D';
 import { 
   ArrowRight, 
   ShieldCheck, 
@@ -44,6 +45,13 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCategory }) => {
     <div className="relative bg-gradient-to-b from-blue-50/80 via-white to-slate-50 dark:from-[#07112c] dark:via-[#091538] dark:to-[#050b18] pt-8 pb-16 lg:pt-14 lg:pb-24 border-b border-slate-200/80 dark:border-slate-800/80 overflow-hidden transition-colors duration-300">
       {/* Background Animated Gradient Mesh & Pharma Dots */}
       <div className="absolute inset-0 bg-pharma-grid opacity-60 dark:opacity-25 pointer-events-none" />
+
+      {/* Giant Ghost 3D Cross - decorative background (desktop) */}
+      <GlassCross3D
+        size={380}
+        variant="ghost"
+        className="hidden lg:block absolute -right-24 -top-20 z-0"
+      />
       
       {/* Subtle Glow Spheres */}
       <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-400/20 dark:bg-blue-600/15 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
@@ -319,6 +327,11 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCategory }) => {
           </div>
 
         </div>
+      </div>
+
+      {/* 3D Glass Red Cross - centered showcase on mobile & tablet */}
+      <div className="lg:hidden relative flex justify-center mt-12">
+        <GlassCross3D size={150} />
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import { AboutSection } from '../components/AboutSection';
 import { WhyChooseUs } from '../components/WhyChooseUs';
 import { CTASection } from '../components/CTASection';
 import { SectionHeading } from '../components/SectionHeading';
+import { Reveal } from '../components/Reveal';
 import { Product, ProductCategory, PageView } from '../types';
 
 interface HomePageProps {
@@ -33,7 +34,9 @@ export const Home: React.FC<HomePageProps> = ({
       />
 
       {/* 2. Trust Bar */}
-      <TrustStrip />
+      <Reveal>
+        <TrustStrip />
+      </Reveal>
 
       {/* 3. Therapeutic Dosage Categories */}
       <section className="py-16 md:py-24 bg-slate-50 dark:bg-slate-950/70 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
