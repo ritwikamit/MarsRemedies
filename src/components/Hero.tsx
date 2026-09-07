@@ -64,12 +64,20 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCategory }) => {
           {/* Left Column: Value Proposition & Animated Hero CTAs */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             
-            {/* Pill Badge with Pulse Indicator */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/90 dark:bg-blue-950/80 border border-blue-200/90 dark:border-blue-800/80 text-[#002060] dark:text-blue-300 text-xs font-bold tracking-wide shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-[#e11d27] animate-ping" />
-              <span>Pharmaceutical Formulations &amp; PCD Franchise</span>
-              <span className="text-slate-400 dark:text-slate-500">•</span>
-              <span className="text-emerald-700 dark:text-emerald-400 font-extrabold">WHO-GMP</span>
+            {/* Lucid Badge with Hospital Red Cross */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/95 dark:bg-slate-900/95 backdrop-blur border border-slate-200 dark:border-slate-700 shadow-sm">
+              <svg viewBox="0 0 20 20" className="w-[18px] h-[18px] shrink-0 drop-shadow-[0_0_6px_rgba(225,29,39,0.55)]" aria-hidden="true">
+                <rect x="7.4" y="1.5" width="5.2" height="17" rx="1.6" fill="#e11d27" />
+                <rect x="1.5" y="7.4" width="17" height="5.2" rx="1.6" fill="#e11d27" />
+                <rect x="8.6" y="3.2" width="1.4" height="13.6" rx="0.7" fill="#ffffff" opacity="0.35" />
+              </svg>
+              <span className="text-xs sm:text-[13px] font-semibold tracking-wide text-slate-800 dark:text-slate-100">
+                Pharmaceutical Formulations &amp; PCD Franchise
+              </span>
+              <span className="w-px h-4 bg-slate-300 dark:bg-slate-600" aria-hidden="true" />
+              <span className="text-xs sm:text-[13px] text-emerald-700 dark:text-emerald-400 font-extrabold tracking-wide">
+                WHO-GMP
+              </span>
             </div>
 
             {/* Main Headline */}
