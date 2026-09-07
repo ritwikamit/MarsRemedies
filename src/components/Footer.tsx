@@ -178,12 +178,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectCategory }) 
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-center sm:text-left flex-wrap justify-center sm:justify-start">
             <span>&copy; {new Date().getFullYear()} Mars Remedies. All Rights Reserved.</span>
             <span className="hidden sm:inline text-slate-600">&bull;</span>
-            <div className="inline-flex items-center gap-2">
+            <div className="inline-flex items-center gap-1.5">
               <span className="text-slate-400">Designed and Developed by</span>
               <img
                 src="/developer/ACCustomLabs.png"
                 alt="AC Custom Labs"
-                className="h-5 sm:h-5.5 w-auto object-contain inline-block transition-opacity hover:opacity-85 translate-y-[1px]"
+                className="h-3.5 sm:h-4 w-auto object-contain inline-block align-middle transition-opacity hover:opacity-85"
                 loading="lazy"
               />
             </div>
