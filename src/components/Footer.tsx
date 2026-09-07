@@ -174,9 +174,20 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectCategory }) 
         </div>
 
         {/* Bottom Strip */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <div>
-            &copy; {new Date().getFullYear()} Mars Remedies. All Rights Reserved. Committed to serve better Healthcare.
+        <div className="pt-6 flex flex-col lg:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-center sm:text-left flex-wrap justify-center sm:justify-start">
+            <span>&copy; {new Date().getFullYear()} Mars Remedies. All Rights Reserved.</span>
+            <span className="hidden sm:inline text-slate-600">&bull;</span>
+            <div className="inline-flex items-center gap-2">
+              <span className="text-slate-400">Designed and Developed by</span>
+              <span className="font-semibold text-slate-200">AC Custom Labs</span>
+              <img
+                src="/developer/ACCustomLabs.png"
+                alt="AC Custom Labs"
+                className="h-6 w-auto object-contain inline-block rounded px-1.5 py-0.5 bg-black/60 border border-slate-700/60 hover:border-red-500/50 transition-all shadow-xs"
+                loading="lazy"
+              />
+            </div>
           </div>
 
           <div className="flex items-center gap-4">
