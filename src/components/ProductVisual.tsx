@@ -22,11 +22,11 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
   className = '',
   productId,
 }) => {
-  // Height classes per size
+  // Height classes per size with generous breathing room
   const heightClasses = {
-    sm: 'h-24 sm:h-28',
-    md: 'h-36 sm:h-40',
-    lg: 'h-52 sm:h-60',
+    sm: 'h-28 sm:h-32',
+    md: 'h-44 sm:h-48',
+    lg: 'h-64 sm:h-72',
     hero: 'h-64 sm:h-72',
   }[size];
 
@@ -125,24 +125,24 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
 
   return (
     <div
-      className={`relative w-full ${heightClasses} rounded-xl overflow-hidden bg-gradient-to-br ${theme.gradient} border border-slate-200/80 dark:border-slate-800/80 flex items-center justify-center p-3 group-hover:shadow-inner transition-all select-none ${className}`}
+      className={`relative w-full ${heightClasses} rounded-xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 flex items-center justify-center p-3 group-hover:border-blue-400 dark:group-hover:border-blue-500 transition-all select-none ${className}`}
     >
-      {/* Background Graphic Grid */}
-      <div className="absolute inset-0 bg-pharma-grid opacity-40 dark:opacity-20 pointer-events-none" />
+      {/* Subtle radial studio backlight */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(241,245,249,0.9)_0%,rgba(255,255,255,0.4)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(30,41,59,0.5)_0%,rgba(15,23,42,0.9)_100%)] pointer-events-none" />
 
       {/* Realistic product photo when available, otherwise category pack illustration */}
       <div className="relative z-10 w-full h-full flex items-center justify-center">
         {showPhoto ? (
-          <div className="relative w-full h-full flex items-center justify-center">
+          <div className="relative w-full h-full flex items-center justify-center p-1">
             {!imageLoaded && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-20 h-20 rounded-2xl bg-white/50 dark:bg-slate-800/50 animate-pulse" />
+                <div className="w-20 h-20 rounded-2xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
               </div>
             )}
             <img
               src={candidateSrc}
               alt={`${brandName} - ${dosageForm} ${category} ${packSize}`}
-              className={`max-h-full max-w-full object-contain drop-shadow-[0_12px_26px_rgba(0,0,0,0.22)] rounded-lg transition-all duration-300 transform group-hover:scale-105 ${
+              className={`max-h-full max-w-full object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.14)] transition-all duration-300 transform group-hover:scale-105 ${
                 imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
               }`}
               loading="lazy"
@@ -427,29 +427,6 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
         )}
           </div>
         )}
-      </div>
-
-      {/* Brand Name Nameplate - written on the pack */}
-      <div className="absolute top-2.5 left-2.5 z-20 max-w-[60%]">
-        <div className="px-2.5 py-1 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200/70 dark:border-slate-700 shadow-sm">
-          <span className="block text-[11px] sm:text-xs font-extrabold tracking-wide text-[#002060] dark:text-blue-300 truncate uppercase">
-            {brandName}
-          </span>
-        </div>
-      </div>
-
-      {/* Floating Badges for Pack Size & Quality */}
-      <div className="absolute top-2.5 right-2.5 flex items-center gap-1 z-20">
-        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${theme.badgeBg} ${theme.badgeText} shadow-2xs backdrop-blur-xs`}>
-          {packSize}
-        </span>
-      </div>
-
-      <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1 z-20">
-        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 shadow-2xs border border-slate-200/60 dark:border-slate-800/60 flex items-center gap-1">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-          {dosageForm}
-        </span>
       </div>
     </div>
   );

@@ -62,6 +62,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           {product.brandName}
         </h3>
 
+        {/* Form & Packaging Specs */}
+        <div className="flex items-center gap-1.5 mt-2 flex-wrap">
+          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md border border-slate-200/70 dark:border-slate-700/70">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+            {product.dosageForm}
+          </span>
+          <span className="inline-flex items-center text-[11px] font-medium text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 px-2 py-0.5 rounded-md border border-slate-200/50 dark:border-slate-800/50">
+            {product.packSize}
+          </span>
+        </div>
+
         {/* Composition Snippet */}
         <div className="mt-2.5 grow">
           <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">
