@@ -91,6 +91,7 @@ export const ProductDetail: React.FC<ProductDetailPageProps> = ({
             {/* Visual Packaging Preview */}
             <div className="max-w-md mx-auto">
               <ProductVisual
+                productId={product.id}
                 category={product.category}
                 brandName={product.brandName}
                 dosageForm={product.dosageForm}

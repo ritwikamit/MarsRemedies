@@ -26,6 +26,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         onClick={() => onViewDetails(product)}
       >
         <ProductVisual
+          productId={product.id}
           category={product.category}
           brandName={product.brandName}
           dosageForm={product.dosageForm}

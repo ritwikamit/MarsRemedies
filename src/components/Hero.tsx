@@ -196,6 +196,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCategory }) => {
                 <div className="mt-4 space-y-3">
                   <div className="animate-in fade-in duration-300">
                     <ProductVisual
+                      productId={currentShowcase.id}
                       category={currentShowcase.category}
                       brandName={currentShowcase.brandName}
                       dosageForm={currentShowcase.dosageForm}

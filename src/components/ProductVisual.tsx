@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ProductCategory } from '../types';
 
 interface ProductVisualProps {
@@ -8,7 +8,12 @@ interface ProductVisualProps {
   packSize?: string;
   size?: 'sm' | 'md' | 'lg' | 'hero';
   className?: string;
+  /** Product ID used to look up a realistic photo at /products/{productId}.webp|png|jpg.
+   *  When no photo file exists, the illustrated pack art is shown instead. */
+  productId?: string;
 }
+
+const PHOTO_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 
 export const ProductVisual: React.FC<ProductVisualProps> = ({
   category,
@@ -17,6 +22,7 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
   packSize = '10x10',
   size = 'md',
   className = '',
+  productId,
 }) => {
   // Height classes per size
   const heightClasses = {
@@ -107,6 +113,38 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
 
   const theme = getTheme();
 
+  // Look up a realistic product photo (public/products/{productId}.webp|png|jpg).
+  // Falls back to the illustrated pack art when no photo file is present.
+  const [photoSrc, setPhotoSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!productId) {
+      setPhotoSrc(null);
+      return;
+    }
+    let cancelled = false;
+    setPhotoSrc(null);
+    (async () => {
+      for (const ext of PHOTO_EXTENSIONS) {
+        const src = `/products/${productId}.${ext}`;
+        const exists = await new Promise<boolean>((resolve) => {
+          const probe = new Image();
+          probe.onload = () => resolve(true);
+          probe.onerror = () => resolve(false);
+          probe.src = src;
+        });
+        if (cancelled) return;
+        if (exists) {
+          setPhotoSrc(src);
+          return;
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [productId]);
+
   return (
     <div
       className={`relative w-full ${heightClasses} rounded-xl overflow-hidden bg-gradient-to-br ${theme.gradient} border border-slate-200/80 dark:border-slate-800/80 flex items-center justify-center p-3 group-hover:shadow-inner transition-all select-none ${className}`}
@@ -114,8 +152,20 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
       {/* Background Graphic Grid */}
       <div className="absolute inset-0 bg-pharma-grid opacity-40 dark:opacity-20 pointer-events-none" />
 
-      {/* Category Specific 3D-styled SVG Pharmaceutical Visual */}
+      {/* Realistic product photo when available, otherwise category pack illustration */}
       <div className="relative z-10 w-full h-full flex items-center justify-center">
+        {photoSrc ? (
+          <img
+            src={photoSrc}
+            alt={`${brandName} - ${dosageForm} ${category} ${packSize}`}
+            className="max-h-full max-w-full object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,0.18)] rounded-lg"
+            loading="lazy"
+            decoding="async"
+            onError={() => setPhotoSrc(null)}
+          />
+        ) : (
+          // Illustrated pack art (fallback)
+          <div className="w-full h-full flex items-center justify-center">
         {/* 1. TABLETS: Blister foil pack & coated tablets */}
         {category === 'Tablets' && (
           <svg viewBox="0 0 240 140" className="max-h-full max-w-full drop-shadow-md">
@@ -386,6 +436,8 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
               <path d="M 26,72 Q 32,68 34,75 Q 28,78 26,72 Z" fill="#15803d" />
             </g>
           </svg>
+        )}
+          </div>
         )}
       </div>
 

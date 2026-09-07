@@ -94,6 +94,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           <div className="grid sm:grid-cols-12 gap-4 items-center">
             <div className="sm:col-span-5">
               <ProductVisual
+                productId={product.id}
                 category={product.category}
                 brandName={product.brandName}
                 dosageForm={product.dosageForm}
