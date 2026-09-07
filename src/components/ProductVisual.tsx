@@ -22,10 +22,10 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
   className = '',
   productId,
 }) => {
-  // Height classes per size with generous breathing room
+  // Height classes per size with rich box-filling dimensions
   const heightClasses = {
-    sm: 'h-28 sm:h-32',
-    md: 'h-44 sm:h-48',
+    sm: 'h-32 sm:h-36',
+    md: 'h-52 sm:h-56',
     lg: 'h-64 sm:h-72',
     hero: 'h-64 sm:h-72',
   }[size];
@@ -125,24 +125,24 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
 
   return (
     <div
-      className={`relative w-full ${heightClasses} rounded-xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 flex items-center justify-center p-3 group-hover:border-blue-400 dark:group-hover:border-blue-500 transition-all select-none ${className}`}
+      className={`relative w-full ${heightClasses} overflow-hidden bg-slate-100 dark:bg-slate-900 flex items-center justify-center select-none ${className}`}
     >
       {/* Subtle radial studio backlight */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(241,245,249,0.9)_0%,rgba(255,255,255,0.4)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(30,41,59,0.5)_0%,rgba(15,23,42,0.9)_100%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.8)_0%,rgba(241,245,249,0.3)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(30,41,59,0.5)_0%,rgba(15,23,42,0.9)_100%)] pointer-events-none" />
 
-      {/* Realistic product photo when available, otherwise category pack illustration */}
+      {/* Realistic product photo filling the entire box */}
       <div className="relative z-10 w-full h-full flex items-center justify-center">
         {showPhoto ? (
-          <div className="relative w-full h-full flex items-center justify-center p-1">
+          <div className="relative w-full h-full flex items-center justify-center">
             {!imageLoaded && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-20 h-20 rounded-2xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
+                <div className="w-20 h-20 rounded-2xl bg-slate-200 dark:bg-slate-800 animate-pulse" />
               </div>
             )}
             <img
               src={candidateSrc}
               alt={`${brandName} - ${dosageForm} ${category} ${packSize}`}
-              className={`max-h-full max-w-full object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.14)] transition-all duration-300 transform group-hover:scale-105 ${
+              className={`w-full h-full object-cover transition-all duration-300 transform group-hover:scale-105 ${
                 imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
               }`}
               loading="lazy"

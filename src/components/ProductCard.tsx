@@ -20,9 +20,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className="flex flex-col bg-white dark:bg-slate-900/95 rounded-2xl border border-slate-200/90 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-xl dark:hover:shadow-blue-950/50 transition-all duration-300 overflow-hidden group h-full relative">
       
-      {/* Product Packaging Visual */}
+      {/* Product Packaging Visual - Edge-to-edge container filling the entire card top */}
       <div 
-        className="p-3.5 pb-0 cursor-pointer"
+        className="w-full cursor-pointer overflow-hidden rounded-t-2xl relative bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800"
         onClick={() => onViewDetails(product)}
       >
         <ProductVisual
