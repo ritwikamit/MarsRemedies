@@ -1,7 +1,6 @@
 import React from 'react';
 import { ProductCategory, PageView } from '../types';
 import { CATEGORIES, CATEGORY_DETAILS, getCategoryStats, PRODUCTS } from '../data/products';
-import { ProductVisual } from '../components/ProductVisual';
 import { 
   Pill, 
   ShieldPlus, 
@@ -86,14 +85,14 @@ export const Categories: React.FC<CategoriesPageProps> = ({
                     {details.description}
                   </p>
 
-                  {/* Packaging Visual Preview */}
-                  <div className="my-4">
-                    <ProductVisual
-                      category={category}
-                      brandName={details.title}
-                      dosageForm={category}
-                      packSize={`${count} Formulations`}
-                      size="sm"
+                  {/* Authentic Category Packaging Visual Showcase */}
+                  <div className="my-4 h-48 sm:h-52 rounded-xl overflow-hidden bg-gradient-to-b from-slate-50 to-slate-100/60 dark:from-slate-800/60 dark:to-slate-900/80 border border-slate-200/80 dark:border-slate-800 flex items-center justify-center p-3 relative">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.95)_0%,rgba(241,245,249,0.4)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(30,41,59,0.4)_0%,rgba(15,23,42,0.9)_100%)] pointer-events-none" />
+                    <img
+                      src={details.image}
+                      alt={details.title}
+                      className="max-h-full max-w-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_8px_16px_rgba(0,0,0,0.3)] relative z-10 transition-transform duration-300 group-hover:scale-103"
+                      loading="lazy"
                     />
                   </div>
 

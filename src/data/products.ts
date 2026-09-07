@@ -16,6 +16,7 @@ export const CATEGORY_DETAILS: Record<ProductCategory, {
   description: string;
   countText: string;
   iconName: string;
+  image: string;
   colorScheme: {
     bg: string;
     text: string;
@@ -28,6 +29,7 @@ export const CATEGORY_DETAILS: Record<ProductCategory, {
     description: 'Precision-compressed coated, uncoated, effervescent, and sustained-release formulations for accurate therapeutic dosing.',
     countText: '39 Formulations',
     iconName: 'Pill',
+    image: '/categories/tablets.png',
     colorScheme: {
       bg: 'bg-blue-50',
       text: 'text-blue-700',
@@ -40,6 +42,7 @@ export const CATEGORY_DETAILS: Record<ProductCategory, {
     description: 'Hard gelatin and softgel liquid capsules designed for optimal bioavailability and rapid gastrointestinal absorption.',
     countText: '11 Formulations',
     iconName: 'ShieldPlus',
+    image: '/categories/capsules.png',
     colorScheme: {
       bg: 'bg-emerald-50',
       text: 'text-emerald-700',
@@ -52,6 +55,7 @@ export const CATEGORY_DETAILS: Record<ProductCategory, {
     description: 'Palatable paediatric and adult liquid oral solutions, tonics, and cough expectorants with consistent suspension stability.',
     countText: '26 Formulations',
     iconName: 'FlaskConical',
+    image: '/categories/syrups.png',
     colorScheme: {
       bg: 'bg-amber-50',
       text: 'text-amber-800',
@@ -64,6 +68,7 @@ export const CATEGORY_DETAILS: Record<ProductCategory, {
     description: 'Paediatric infant drops, dry powders, and single-serve effervescent sachets ensuring precise micro-dosage administration.',
     countText: '11 Formulations',
     iconName: 'Droplet',
+    image: '/categories/drops.png',
     colorScheme: {
       bg: 'bg-cyan-50',
       text: 'text-cyan-700',
@@ -76,6 +81,7 @@ export const CATEGORY_DETAILS: Record<ProductCategory, {
     description: 'Sterile intravenous (IV) and intramuscular (IM) ampoules and vials manufactured under strict aseptic conditions.',
     countText: '15 Formulations',
     iconName: 'Syringe',
+    image: '/categories/injections.png',
     colorScheme: {
       bg: 'bg-rose-50',
       text: 'text-rose-700',
@@ -88,6 +94,7 @@ export const CATEGORY_DETAILS: Record<ProductCategory, {
     description: 'Medicated antifungal, antibacterial, and analgesic ointments, topical gels, soothing lotions, and therapeutic soaps.',
     countText: '5 Formulations',
     iconName: 'Sparkles',
+    image: '/categories/creams.png',
     colorScheme: {
       bg: 'bg-purple-50',
       text: 'text-purple-700',
@@ -100,6 +107,7 @@ export const CATEGORY_DETAILS: Record<ProductCategory, {
     description: 'Isotonic, sterile ophthalmic and otic solutions engineered for sensitive ocular and aural antibacterial protection.',
     countText: '4 Formulations',
     iconName: 'Eye',
+    image: '/categories/eye-drops.png',
     colorScheme: {
       bg: 'bg-teal-50',
       text: 'text-teal-700',
@@ -112,6 +120,7 @@ export const CATEGORY_DETAILS: Record<ProductCategory, {
     description: 'Targeted botanical and active pharmaceutical pain-relief topical oils for fast penetrative joint and muscular comfort.',
     countText: '1 Formulation',
     iconName: 'Flame',
+    image: '/categories/oil.png',
     colorScheme: {
       bg: 'bg-orange-50',
       text: 'text-orange-700',
