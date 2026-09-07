@@ -180,11 +180,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectCategory }) 
             <span className="hidden sm:inline text-slate-600">&bull;</span>
             <div className="inline-flex items-center gap-2">
               <span className="text-slate-400">Designed and Developed by</span>
-              <span className="font-semibold text-slate-200">AC Custom Labs</span>
               <img
                 src="/developer/ACCustomLabs.png"
                 alt="AC Custom Labs"
-                className="h-6 w-auto object-contain inline-block rounded px-1.5 py-0.5 bg-black/60 border border-slate-700/60 hover:border-red-500/50 transition-all shadow-xs"
+                className="h-5 sm:h-5.5 w-auto object-contain inline-block transition-opacity hover:opacity-85 translate-y-[1px]"
                 loading="lazy"
               />
             </div>
