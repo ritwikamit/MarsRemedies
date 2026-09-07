@@ -22,7 +22,7 @@ while ((match = regex.exec(productsFile)) !== null) {
   });
 }
 
-console.log(`Loaded ${products.length} products to render into realistic packaging filling the box.`);
+console.log(`Loaded ${products.length} products to render with aesthetic framing.`);
 
 function escapeXml(unsafe) {
   if (!unsafe) return '';
@@ -68,27 +68,27 @@ function getBrandFontSize(brandName, maxWidth, maxFontSize = 38) {
 async function generateTablet(product) {
   const templatePath = path.join(TEMPLATE_DIR, 'tab-1.png');
   const [compLine1, compLine2] = splitComposition(product.composition, 40);
-  const brandSize = getBrandFontSize(product.brandName, 530, 42);
+  const brandSize = getBrandFontSize(product.brandName, 520, 42);
 
   const bannerSvg = `
-    <svg width="600" height="220" viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+    <svg width="585" height="215" viewBox="0 0 585 215" xmlns="http://www.w3.org/2000/svg">
       <!-- Dark Navy Top Banner -->
-      <rect x="0" y="0" width="600" height="135" fill="#002060" />
-      <text x="300" y="86" font-family="'Arial Black', Arial, sans-serif" font-size="${brandSize}" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1.5">
+      <rect x="0" y="0" width="585" height="135" fill="#002060" />
+      <text x="292" y="86" font-family="'Arial Black', Arial, sans-serif" font-size="${brandSize}" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1.5">
         ${escapeXml(product.brandName)}
       </text>
 
-      <!-- Medium Blue Formulation Strip covering all underlying text -->
-      <rect x="0" y="135" width="600" height="85" fill="#0062b1" />
+      <!-- Medium Blue Formulation Strip -->
+      <rect x="0" y="135" width="585" height="80" fill="#0062b1" />
       ${compLine2 ? `
-        <text x="300" y="166" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">
+        <text x="292" y="165" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">
           ${escapeXml(compLine1)}
         </text>
-        <text x="300" y="194" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">
+        <text x="292" y="192" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">
           ${escapeXml(compLine2)}
         </text>
       ` : `
-        <text x="300" y="180" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">
+        <text x="292" y="178" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">
           ${escapeXml(compLine1)}
         </text>
       `}
@@ -96,12 +96,12 @@ async function generateTablet(product) {
   `;
 
   const packSvg = `
-    <svg width="330" height="110" viewBox="0 0 330 110" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="330" height="110" fill="#fcfcfc" />
-      <text x="165" y="45" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#0f172a" text-anchor="middle">
+    <svg width="320" height="105" viewBox="0 0 320 105" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="320" height="105" fill="#fcfcfc" />
+      <text x="160" y="42" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#0f172a" text-anchor="middle">
         ${escapeXml(product.packSize)}
       </text>
-      <text x="165" y="78" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#64748b" text-anchor="middle">
+      <text x="160" y="74" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#64748b" text-anchor="middle">
         (in Blister Strips)
       </text>
     </svg>
@@ -110,16 +110,17 @@ async function generateTablet(product) {
   const bannerBuf = await sharp(Buffer.from(bannerSvg)).png().toBuffer();
   const packBuf = await sharp(Buffer.from(packSvg)).png().toBuffer();
 
+  // Balanced aesthetic crop giving 30px breathing room around packaging
   const cropped = await sharp(templatePath)
-    .extract({ left: 175, top: 235, width: 745, height: 580 })
+    .extract({ left: 155, top: 215, width: 800, height: 630 })
     .toBuffer();
 
   await sharp(cropped)
     .composite([
-      { input: bannerBuf, left: 0, top: 25 },
-      { input: packBuf, left: 245, top: 235 }
+      { input: bannerBuf, left: 35, top: 48 },
+      { input: packBuf, left: 280, top: 255 }
     ])
-    .resize(900, 700, { fit: 'cover' })
+    .resize(900, 708, { fit: 'cover' })
     .toFile(path.join(OUTPUT_DIR, `${product.id}.png`));
 }
 
@@ -130,47 +131,47 @@ async function generateCapsule(product) {
 
   if (isSoftgel) {
     await sharp(templatePath)
-      .extract({ left: 120, top: 160, width: 780, height: 680 })
+      .extract({ left: 100, top: 140, width: 820, height: 710 })
       .resize(900, 780, { fit: 'cover' })
       .toFile(path.join(OUTPUT_DIR, `${product.id}.png`));
     return;
   }
 
   const [compLine1, compLine2] = splitComposition(product.composition, 34);
-  const brandSize = getBrandFontSize(product.brandName, 450, 38);
+  const brandSize = getBrandFontSize(product.brandName, 440, 38);
 
   const labelSvg = `
-    <svg width="490" height="340" viewBox="0 0 490 340" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="490" height="340" fill="#ffffff" />
-      <rect x="0" y="0" width="490" height="7" fill="#002060" />
+    <svg width="480" height="340" viewBox="0 0 480 340" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="480" height="340" fill="#ffffff" />
+      <rect x="0" y="0" width="480" height="7" fill="#002060" />
 
       <!-- Active Composition -->
-      <text x="245" y="52" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#1e293b" text-anchor="middle">
+      <text x="240" y="52" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#1e293b" text-anchor="middle">
         ${escapeXml(compLine1)}
       </text>
       ${compLine2 ? `
-        <text x="245" y="80" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#1e293b" text-anchor="middle">
+        <text x="240" y="80" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#1e293b" text-anchor="middle">
           ${escapeXml(compLine2)}
         </text>
       ` : ''}
 
       <!-- Brand Name -->
-      <text x="245" y="164" font-family="'Arial Black', Arial, sans-serif" font-size="${brandSize}" font-weight="900" fill="#002060" text-anchor="middle" letter-spacing="1">
+      <text x="240" y="164" font-family="'Arial Black', Arial, sans-serif" font-size="${brandSize}" font-weight="900" fill="#002060" text-anchor="middle" letter-spacing="1">
         ${escapeXml(product.brandName)}
       </text>
 
       <!-- Dosage Form & Standard -->
-      <text x="245" y="214" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#059669" text-anchor="middle">
+      <text x="240" y="214" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#059669" text-anchor="middle">
         ${escapeXml(product.dosageForm)} • Bioequivalence Standard
       </text>
 
       <!-- Pack Size Badge -->
-      <rect x="165" y="244" width="160" height="42" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" />
-      <text x="245" y="272" font-family="Arial, sans-serif" font-size="17" font-weight="800" fill="#0f172a" text-anchor="middle">
+      <rect x="160" y="244" width="160" height="42" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" />
+      <text x="240" y="272" font-family="Arial, sans-serif" font-size="17" font-weight="800" fill="#0f172a" text-anchor="middle">
         ${escapeXml(product.packSize)}
       </text>
 
-      <text x="245" y="314" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#94a3b8" text-anchor="middle" letter-spacing="1">
+      <text x="240" y="314" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#94a3b8" text-anchor="middle" letter-spacing="1">
         PRESCRIPTION ONLY MEDICINE
       </text>
     </svg>
@@ -179,12 +180,12 @@ async function generateCapsule(product) {
   const labelBuf = await sharp(Buffer.from(labelSvg)).png().toBuffer();
 
   const cropped = await sharp(templatePath)
-    .extract({ left: 95, top: 250, width: 825, height: 520 })
+    .extract({ left: 75, top: 235, width: 885, height: 560 })
     .toBuffer();
 
   await sharp(cropped)
     .composite([
-      { input: labelBuf, left: 65, top: 78 }
+      { input: labelBuf, left: 85, top: 90 }
     ])
     .resize(900, 570, { fit: 'cover' })
     .toFile(path.join(OUTPUT_DIR, `${product.id}.png`));
@@ -194,63 +195,61 @@ async function generateCapsule(product) {
 async function generateSyrup(product) {
   const templatePath = path.join(TEMPLATE_DIR, 'syp-1.png');
   const [compLine1, compLine2] = splitComposition(product.composition, 30);
-  const brandSize = getBrandFontSize(product.brandName, 370, 36);
+  const brandSize = getBrandFontSize(product.brandName, 360, 36);
 
-  // Covers carton face completely from left 270 to 690 (width: 420, height: 490)
   const cartonSvg = `
-    <svg width="420" height="490" viewBox="0 0 420 490" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="420" height="490" fill="#ffffff" />
+    <svg width="410" height="480" viewBox="0 0 410 480" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="410" height="480" fill="#ffffff" />
       
       <!-- Brand Name -->
-      <text x="210" y="85" font-family="'Arial Black', Arial, sans-serif" font-size="${brandSize}" font-weight="900" fill="#002060" text-anchor="middle">
+      <text x="205" y="80" font-family="'Arial Black', Arial, sans-serif" font-size="${brandSize}" font-weight="900" fill="#002060" text-anchor="middle">
         ${escapeXml(product.brandName)}
       </text>
-      <text x="210" y="140" font-family="'Arial Black', Arial, sans-serif" font-size="34" font-weight="900" fill="#002060" text-anchor="middle">
+      <text x="205" y="135" font-family="'Arial Black', Arial, sans-serif" font-size="34" font-weight="900" fill="#002060" text-anchor="middle">
         SYRUP
       </text>
 
       <!-- Composition -->
-      <text x="210" y="210" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#334155" text-anchor="middle">
+      <text x="205" y="200" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#334155" text-anchor="middle">
         ${escapeXml(compLine1)}
       </text>
       ${compLine2 ? `
-        <text x="210" y="242" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#334155" text-anchor="middle">
+        <text x="205" y="232" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#334155" text-anchor="middle">
           ${escapeXml(compLine2)}
         </text>
       ` : ''}
 
       <!-- Pack size badge -->
-      <rect x="130" y="310" width="160" height="48" rx="8" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1.5" />
-      <text x="210" y="342" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#0284c7" text-anchor="middle">
+      <rect x="125" y="300" width="160" height="48" rx="8" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1.5" />
+      <text x="205" y="332" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#0284c7" text-anchor="middle">
         ${escapeXml(product.packSize)}
       </text>
 
-      <text x="210" y="415" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#d97706" text-anchor="middle">
+      <text x="205" y="405" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#d97706" text-anchor="middle">
         Sugar-Free Formulation
       </text>
     </svg>
   `;
 
-  // Bottle label patch (width: 290, height: 380)
   const bottleSvg = `
-    <svg width="290" height="380" viewBox="0 0 290 380" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="290" height="380" fill="#ffffff" />
-      <text x="145" y="80" font-family="'Arial Black', Arial, sans-serif" font-size="${Math.min(22, brandSize - 4)}" font-weight="900" fill="#002060" text-anchor="middle">
+    <svg width="280" height="370" viewBox="0 0 280 370" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="280" height="370" fill="#ffffff" />
+      <text x="140" y="75" font-family="'Arial Black', Arial, sans-serif" font-size="${Math.min(22, brandSize - 4)}" font-weight="900" fill="#002060" text-anchor="middle">
         ${escapeXml(product.brandName)}
       </text>
-      <text x="145" y="125" font-family="'Arial Black', Arial, sans-serif" font-size="20" font-weight="900" fill="#002060" text-anchor="middle">
+      <text x="140" y="120" font-family="'Arial Black', Arial, sans-serif" font-size="20" font-weight="900" fill="#002060" text-anchor="middle">
         SYRUP
       </text>
-      <text x="145" y="185" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#475569" text-anchor="middle">
+      <text x="140" y="175" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#475569" text-anchor="middle">
         ${escapeXml(compLine1)}
       </text>
       ${compLine2 ? `
-        <text x="145" y="215" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#475569" text-anchor="middle">
+        <text x="140" y="205" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#475569" text-anchor="middle">
           ${escapeXml(compLine2)}
         </text>
       ` : ''}
-      <rect x="70" y="260" width="150" height="44" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5" />
-      <text x="145" y="289" font-family="Arial, sans-serif" font-size="18" font-weight="800" fill="#0284c7" text-anchor="middle">
+      <rect x="65" y="250" width="150" height="44" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5" />
+      <text x="140" y="279" font-family="Arial, sans-serif" font-size="18" font-weight="800" fill="#0284c7" text-anchor="middle">
         ${escapeXml(product.packSize)}
       </text>
     </svg>
@@ -260,15 +259,15 @@ async function generateSyrup(product) {
   const bottleBuf = await sharp(Buffer.from(bottleSvg)).png().toBuffer();
 
   const cropped = await sharp(templatePath)
-    .extract({ left: 140, top: 95, width: 730, height: 810 })
+    .extract({ left: 130, top: 80, width: 760, height: 880 })
     .toBuffer();
 
   await sharp(cropped)
     .composite([
-      { input: cartonBuf, left: 270, top: 95 },
-      { input: bottleBuf, left: 0, top: 360 }
+      { input: cartonBuf, left: 280, top: 125 },
+      { input: bottleBuf, left: 10, top: 380 }
     ])
-    .resize(800, 890, { fit: 'cover' })
+    .resize(800, 926, { fit: 'cover' })
     .toFile(path.join(OUTPUT_DIR, `${product.id}.png`));
 }
 
@@ -279,27 +278,27 @@ async function generateInjection(product) {
   const brandSize = getBrandFontSize(product.brandName, 430, 38);
 
   const boxSvg = `
-    <svg width="490" height="350" viewBox="0 0 490 350" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="490" height="350" fill="#ffffff" />
+    <svg width="485" height="350" viewBox="0 0 485 350" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="485" height="350" fill="#ffffff" />
       
       <!-- Rx Symbol & Active Ingredients -->
       <text x="25" y="38" font-family="Georgia, serif" font-size="28" font-weight="bold" fill="#002060">℞</text>
-      <text x="245" y="76" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#1e293b" text-anchor="middle">
+      <text x="242" y="76" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#1e293b" text-anchor="middle">
         ${escapeXml(compLine1)}
       </text>
       ${compLine2 ? `
-        <text x="245" y="106" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#1e293b" text-anchor="middle">
+        <text x="242" y="106" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#1e293b" text-anchor="middle">
           ${escapeXml(compLine2)}
         </text>
       ` : ''}
 
       <!-- Brand Name -->
-      <text x="245" y="195" font-family="'Arial Black', Arial, sans-serif" font-size="${brandSize}" font-weight="900" fill="#002060" text-anchor="middle" letter-spacing="1">
+      <text x="242" y="195" font-family="'Arial Black', Arial, sans-serif" font-size="${brandSize}" font-weight="900" fill="#002060" text-anchor="middle" letter-spacing="1">
         ${escapeXml(product.brandName)}
       </text>
 
       <!-- Parenteral Subtitle -->
-      <text x="245" y="245" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#64748b" text-anchor="middle">
+      <text x="242" y="245" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#64748b" text-anchor="middle">
         Sterile Dry Powder | Parenteral Use Only
       </text>
 
@@ -312,12 +311,12 @@ async function generateInjection(product) {
   `;
 
   const vialSvg = `
-    <svg width="210" height="75" viewBox="0 0 210 75" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="210" height="75" fill="#ffffff" />
-      <text x="105" y="38" font-family="'Arial Black', Arial, sans-serif" font-size="14" font-weight="900" fill="#002060" text-anchor="middle">
+    <svg width="200" height="75" viewBox="0 0 200 75" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="200" height="75" fill="#ffffff" />
+      <text x="100" y="38" font-family="'Arial Black', Arial, sans-serif" font-size="14" font-weight="900" fill="#002060" text-anchor="middle">
         ${escapeXml(product.brandName)}
       </text>
-      <text x="105" y="58" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#64748b" text-anchor="middle">
+      <text x="100" y="58" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#64748b" text-anchor="middle">
         ${escapeXml(product.packSize)}
       </text>
     </svg>
@@ -327,15 +326,15 @@ async function generateInjection(product) {
   const vialBuf = await sharp(Buffer.from(vialSvg)).png().toBuffer();
 
   const cropped = await sharp(templatePath)
-    .extract({ left: 105, top: 245, width: 800, height: 550 })
+    .extract({ left: 80, top: 230, width: 860, height: 610 })
     .toBuffer();
 
   await sharp(cropped)
     .composite([
-      { input: boxBuf, left: 95, top: 95 },
-      { input: vialBuf, left: 520, top: 455 }
+      { input: boxBuf, left: 115, top: 105 },
+      { input: vialBuf, left: 545, top: 465 }
     ])
-    .resize(900, 620, { fit: 'cover' })
+    .resize(900, 638, { fit: 'cover' })
     .toFile(path.join(OUTPUT_DIR, `${product.id}.png`));
 }
 
@@ -345,7 +344,6 @@ async function generateEyeDrops(product) {
   const [compLine1, compLine2] = splitComposition(product.composition, 26);
   const brandSize = getBrandFontSize(product.brandName, 310, 30);
 
-  // Covers carton front face completely from left 230 to 620 (width: 390, height: 540)
   const boxSvg = `
     <svg width="390" height="540" viewBox="0 0 390 540" xmlns="http://www.w3.org/2000/svg">
       <rect x="0" y="0" width="390" height="540" fill="#ffffff" />
@@ -383,21 +381,17 @@ async function generateEyeDrops(product) {
     </svg>
   `;
 
-  // Bottle label patch covering lower bottle text
   const bottleSvg = `
-    <svg width="230" height="160" viewBox="0 0 230 160" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="230" height="160" fill="#ffffff" />
-      <text x="115" y="45" font-family="'Arial Black', Arial, sans-serif" font-size="19" font-weight="900" fill="#0d9488" text-anchor="middle">
+    <svg width="220" height="150" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="220" height="150" fill="#ffffff" />
+      <text x="110" y="42" font-family="'Arial Black', Arial, sans-serif" font-size="18" font-weight="900" fill="#0d9488" text-anchor="middle">
         ${escapeXml(product.brandName)}
       </text>
-      <text x="115" y="80" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#1e293b" text-anchor="middle">
+      <text x="110" y="75" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#1e293b" text-anchor="middle">
         EYE DROPS
       </text>
-      <text x="115" y="115" font-family="Arial, sans-serif" font-size="16" font-weight="800" fill="#0f766e" text-anchor="middle">
+      <text x="110" y="108" font-family="Arial, sans-serif" font-size="16" font-weight="800" fill="#0f766e" text-anchor="middle">
         ${escapeXml(product.packSize)}
-      </text>
-      <text x="115" y="142" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#64748b" text-anchor="middle">
-        Sterile Solution
       </text>
     </svg>
   `;
@@ -406,15 +400,15 @@ async function generateEyeDrops(product) {
   const bottleBuf = await sharp(Buffer.from(bottleSvg)).png().toBuffer();
 
   const cropped = await sharp(templatePath)
-    .extract({ left: 195, top: 175, width: 625, height: 670 })
+    .extract({ left: 190, top: 150, width: 670, height: 740 })
     .toBuffer();
 
   await sharp(cropped)
     .composite([
-      { input: boxBuf, left: 230, top: 25 },
-      { input: bottleBuf, left: 10, top: 580 }
+      { input: boxBuf, left: 235, top: 40 },
+      { input: bottleBuf, left: 15, top: 575 }
     ])
-    .resize(750, 800, { fit: 'cover' })
+    .resize(750, 828, { fit: 'cover' })
     .toFile(path.join(OUTPUT_DIR, `${product.id}.png`));
 }
 
@@ -453,14 +447,14 @@ async function generateCream(product) {
   const boxBuf = await sharp(Buffer.from(boxSvg)).png().toBuffer();
 
   const cropped = await sharp(templatePath)
-    .extract({ left: 100, top: 240, width: 800, height: 490 })
+    .extract({ left: 80, top: 220, width: 880, height: 550 })
     .toBuffer();
 
   await sharp(cropped)
     .composite([
-      { input: boxBuf, left: 320, top: 10 }
+      { input: boxBuf, left: 340, top: 25 }
     ])
-    .resize(900, 550, { fit: 'cover' })
+    .resize(900, 562, { fit: 'cover' })
     .toFile(path.join(OUTPUT_DIR, `${product.id}.png`));
 }
 
@@ -470,38 +464,36 @@ async function generateDrySyrup(product) {
   const [compLine1, compLine2] = splitComposition(product.composition, 30);
   const brandSize = getBrandFontSize(product.brandName, 370, 36);
 
-  // Covers carton face completely from left 105 to 550 (width: 445, height: 340)
   const boxSvg = `
-    <svg width="445" height="340" viewBox="0 0 445 340" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="445" height="340" fill="#ffffff" />
+    <svg width="440" height="335" viewBox="0 0 440 335" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="440" height="335" fill="#ffffff" />
       
       <!-- Brand Name -->
-      <text x="222" y="65" font-family="'Arial Black', Arial, sans-serif" font-size="${brandSize}" font-weight="900" fill="#0891b2" text-anchor="middle">
+      <text x="220" y="65" font-family="'Arial Black', Arial, sans-serif" font-size="${brandSize}" font-weight="900" fill="#0891b2" text-anchor="middle">
         ${escapeXml(product.brandName)}
       </text>
-      <text x="222" y="112" font-family="'Arial Black', Arial, sans-serif" font-size="22" font-weight="800" fill="#0e7490" text-anchor="middle">
+      <text x="220" y="112" font-family="'Arial Black', Arial, sans-serif" font-size="22" font-weight="800" fill="#0e7490" text-anchor="middle">
         ${escapeXml(product.dosageForm.toUpperCase())}
       </text>
 
       <!-- Composition -->
-      <text x="222" y="175" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#1e293b" text-anchor="middle">
+      <text x="220" y="175" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#1e293b" text-anchor="middle">
         ${escapeXml(compLine1)}
       </text>
       ${compLine2 ? `
-        <text x="222" y="206" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#1e293b" text-anchor="middle">
+        <text x="220" y="206" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#1e293b" text-anchor="middle">
           ${escapeXml(compLine2)}
         </text>
       ` : ''}
 
       <!-- Pack Size -->
-      <rect x="135" y="250" width="175" height="48" rx="6" fill="#ecfeff" stroke="#a5f3fc" stroke-width="1.5" />
-      <text x="222" y="281" font-family="Arial, sans-serif" font-size="18" font-weight="800" fill="#0891b2" text-anchor="middle">
+      <rect x="135" y="250" width="170" height="46" rx="6" fill="#ecfeff" stroke="#a5f3fc" stroke-width="1.5" />
+      <text x="220" y="280" font-family="Arial, sans-serif" font-size="18" font-weight="800" fill="#0891b2" text-anchor="middle">
         ${escapeXml(product.packSize)}
       </text>
     </svg>
   `;
 
-  // Dropper bottle label patch
   const bottleSvg = `
     <svg width="190" height="85" viewBox="0 0 190 85" xmlns="http://www.w3.org/2000/svg">
       <rect x="0" y="0" width="190" height="85" fill="#ffffff" />
@@ -518,15 +510,15 @@ async function generateDrySyrup(product) {
   const bottleBuf = await sharp(Buffer.from(bottleSvg)).png().toBuffer();
 
   const cropped = await sharp(templatePath)
-    .extract({ left: 95, top: 155, width: 820, height: 750 })
+    .extract({ left: 70, top: 130, width: 860, height: 820 })
     .toBuffer();
 
   await sharp(cropped)
     .composite([
-      { input: boxBuf, left: 105, top: 130 },
-      { input: bottleBuf, left: 555, top: 610 }
+      { input: boxBuf, left: 130, top: 155 },
+      { input: bottleBuf, left: 580, top: 635 }
     ])
-    .resize(880, 800, { fit: 'cover' })
+    .resize(850, 810, { fit: 'cover' })
     .toFile(path.join(OUTPUT_DIR, `${product.id}.png`));
 }
 
@@ -534,12 +526,12 @@ async function generateDrySyrup(product) {
 async function generateOil(product) {
   const templatePath = path.join(TEMPLATE_DIR, 'oil-1.png');
   await sharp(templatePath)
-    .extract({ left: 155, top: 125, width: 715, height: 790 })
-    .resize(800, 880, { fit: 'cover' })
+    .extract({ left: 140, top: 100, width: 750, height: 860 })
+    .resize(800, 917, { fit: 'cover' })
     .toFile(path.join(OUTPUT_DIR, `${product.id}.png`));
 }
 
-// Crop Preserved Originals to Fill the Box
+// Crop Preserved Originals to Balanced Aesthetic Framing
 async function cropPreservedPhoto(id) {
   const file = `${id}.png`;
   const templatePath = path.join(TEMPLATE_DIR, file);
@@ -548,43 +540,43 @@ async function cropPreservedPhoto(id) {
 
   if (id === 'tab-1' || id === 'tab-2' || id === 'tab-25' || id === 'tab-32') {
     await sharp(templatePath)
-      .extract({ left: 175, top: 235, width: 745, height: 580 })
-      .resize(900, 700, { fit: 'cover' })
+      .extract({ left: 155, top: 215, width: 800, height: 630 })
+      .resize(900, 708, { fit: 'cover' })
       .toFile(targetPath);
   } else if (id === 'cap-2' || id === 'cap-8') {
     await sharp(templatePath)
-      .extract({ left: 95, top: 250, width: 825, height: 520 })
+      .extract({ left: 75, top: 235, width: 885, height: 560 })
       .resize(900, 570, { fit: 'cover' })
       .toFile(targetPath);
   } else if (id === 'syp-1' || id === 'syp-11') {
     await sharp(templatePath)
-      .extract({ left: 140, top: 95, width: 730, height: 810 })
-      .resize(800, 890, { fit: 'cover' })
+      .extract({ left: 130, top: 80, width: 760, height: 880 })
+      .resize(800, 926, { fit: 'cover' })
       .toFile(targetPath);
   } else if (id === 'inj-5') {
     await sharp(templatePath)
-      .extract({ left: 105, top: 245, width: 800, height: 550 })
-      .resize(900, 620, { fit: 'cover' })
+      .extract({ left: 80, top: 230, width: 860, height: 610 })
+      .resize(900, 638, { fit: 'cover' })
       .toFile(targetPath);
   } else if (id === 'crm-1') {
     await sharp(templatePath)
-      .extract({ left: 100, top: 240, width: 800, height: 490 })
-      .resize(900, 550, { fit: 'cover' })
+      .extract({ left: 80, top: 220, width: 880, height: 550 })
+      .resize(900, 562, { fit: 'cover' })
       .toFile(targetPath);
   } else if (id === 'eye-2') {
     await sharp(templatePath)
-      .extract({ left: 195, top: 175, width: 625, height: 670 })
-      .resize(750, 800, { fit: 'cover' })
+      .extract({ left: 190, top: 150, width: 670, height: 740 })
+      .resize(750, 828, { fit: 'cover' })
       .toFile(targetPath);
   } else if (id === 'oil-1') {
     await sharp(templatePath)
-      .extract({ left: 155, top: 125, width: 715, height: 790 })
-      .resize(800, 880, { fit: 'cover' })
+      .extract({ left: 140, top: 100, width: 750, height: 860 })
+      .resize(800, 917, { fit: 'cover' })
       .toFile(targetPath);
   } else if (id === 'drp-1') {
     await sharp(templatePath)
-      .extract({ left: 95, top: 155, width: 820, height: 750 })
-      .resize(880, 800, { fit: 'cover' })
+      .extract({ left: 70, top: 130, width: 860, height: 820 })
+      .resize(850, 810, { fit: 'cover' })
       .toFile(targetPath);
   }
 }
@@ -601,14 +593,14 @@ const PRESERVED_IDS = new Set([
 ]);
 
 async function run() {
-  console.log('--- STARTING HIGH-PRECISION PHOTOREALISTIC BATCH GENERATION ---');
+  console.log('--- STARTING BALANCED AESTHETIC RE-GENERATION FOR ALL 112 PRODUCTS ---');
   let count = 0;
 
   for (const p of products) {
     try {
       if (PRESERVED_IDS.has(p.id)) {
         await cropPreservedPhoto(p.id);
-        console.log(`[${++count}/${products.length}] Preserved & cropped photo for ${p.id} (${p.brandName})`);
+        console.log(`[${++count}/${products.length}] Preserved with aesthetic framing: ${p.id} (${p.brandName})`);
         continue;
       }
 
@@ -642,13 +634,13 @@ async function run() {
           break;
       }
 
-      console.log(`[${++count}/${products.length}] Generated realistic photo for ${p.id} (${p.brandName})`);
+      console.log(`[${++count}/${products.length}] Generated with aesthetic framing: ${p.id} (${p.brandName})`);
     } catch (err) {
       console.error(`Error processing ${p.id}:`, err);
     }
   }
 
-  console.log('--- COMPLETED ALL 112 PRODUCTS! ---');
+  console.log('--- COMPLETED AESTHETIC GENERATION FOR ALL 112 PRODUCTS! ---');
 }
 
 run().catch(console.error);

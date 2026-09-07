@@ -125,12 +125,12 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
 
   return (
     <div
-      className={`relative w-full ${heightClasses} overflow-hidden bg-slate-100 dark:bg-slate-900 flex items-center justify-center select-none ${className}`}
+      className={`relative w-full ${heightClasses} overflow-hidden bg-gradient-to-b from-slate-50/90 to-slate-100/50 dark:from-slate-900/90 dark:to-slate-950 flex items-center justify-center p-3 select-none ${className}`}
     >
       {/* Subtle radial studio backlight */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.8)_0%,rgba(241,245,249,0.3)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(30,41,59,0.5)_0%,rgba(15,23,42,0.9)_100%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.95)_0%,rgba(241,245,249,0.4)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(30,41,59,0.4)_0%,rgba(15,23,42,0.9)_100%)] pointer-events-none" />
 
-      {/* Realistic product photo filling the entire box */}
+      {/* Realistic product photo - fully shown, correctly proportioned, not zoomed in */}
       <div className="relative z-10 w-full h-full flex items-center justify-center">
         {showPhoto ? (
           <div className="relative w-full h-full flex items-center justify-center">
@@ -142,7 +142,7 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
             <img
               src={candidateSrc}
               alt={`${brandName} - ${dosageForm} ${category} ${packSize}`}
-              className={`w-full h-full object-cover transition-all duration-300 transform group-hover:scale-105 ${
+              className={`max-h-full max-w-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.09)] dark:drop-shadow-[0_8px_16px_rgba(0,0,0,0.35)] transition-all duration-300 transform group-hover:scale-103 ${
                 imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
               }`}
               loading="lazy"
