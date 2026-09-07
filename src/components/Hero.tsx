@@ -201,7 +201,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate, onSelectCategory }) => {
                       brandName={currentShowcase.brandName}
                       dosageForm={currentShowcase.dosageForm}
                       packSize={currentShowcase.packSize}
-                      size="sm"
+                      size="md"
                     />
                   </div>
 

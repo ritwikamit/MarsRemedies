@@ -13,8 +13,6 @@ interface ProductVisualProps {
   productId?: string;
 }
 
-const PHOTO_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
-
 export const ProductVisual: React.FC<ProductVisualProps> = ({
   category,
   brandName = 'Mars Formulation',
@@ -113,37 +111,17 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
 
   const theme = getTheme();
 
-  // Look up a realistic product photo (public/products/{productId}.webp|png|jpg).
-  // Falls back to the illustrated pack art when no photo file is present.
-  const [photoSrc, setPhotoSrc] = useState<string | null>(null);
+  // Streamlined photo resolution with smooth skeleton shimmer & instant loading
+  const [imageFailed, setImageFailed] = useState<boolean>(false);
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!productId) {
-      setPhotoSrc(null);
-      return;
-    }
-    let cancelled = false;
-    setPhotoSrc(null);
-    (async () => {
-      for (const ext of PHOTO_EXTENSIONS) {
-        const src = `/products/${productId}.${ext}`;
-        const exists = await new Promise<boolean>((resolve) => {
-          const probe = new Image();
-          probe.onload = () => resolve(true);
-          probe.onerror = () => resolve(false);
-          probe.src = src;
-        });
-        if (cancelled) return;
-        if (exists) {
-          setPhotoSrc(src);
-          return;
-        }
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
+    setImageFailed(false);
+    setImageLoaded(false);
   }, [productId]);
+
+  const candidateSrc = productId ? `/products/${productId}.png` : null;
+  const showPhoto = candidateSrc && !imageFailed;
 
   return (
     <div
@@ -154,15 +132,25 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
 
       {/* Realistic product photo when available, otherwise category pack illustration */}
       <div className="relative z-10 w-full h-full flex items-center justify-center">
-        {photoSrc ? (
-          <img
-            src={photoSrc}
-            alt={`${brandName} - ${dosageForm} ${category} ${packSize}`}
-            className="max-h-full max-w-full object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,0.18)] rounded-lg"
-            loading="lazy"
-            decoding="async"
-            onError={() => setPhotoSrc(null)}
-          />
+        {showPhoto ? (
+          <div className="relative w-full h-full flex items-center justify-center">
+            {!imageLoaded && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-20 h-20 rounded-2xl bg-white/50 dark:bg-slate-800/50 animate-pulse" />
+              </div>
+            )}
+            <img
+              src={candidateSrc}
+              alt={`${brandName} - ${dosageForm} ${category} ${packSize}`}
+              className={`max-h-full max-w-full object-contain drop-shadow-[0_12px_26px_rgba(0,0,0,0.22)] rounded-lg transition-all duration-300 transform group-hover:scale-105 ${
+                imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+              }`}
+              loading="lazy"
+              decoding="async"
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageFailed(true)}
+            />
+          </div>
         ) : (
           // Illustrated pack art (fallback)
           <div className="w-full h-full flex items-center justify-center">

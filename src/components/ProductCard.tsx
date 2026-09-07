@@ -18,9 +18,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const categoryMeta = CATEGORY_DETAILS[product.category];
 
   return (
-    <div className="flex flex-col bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-lg dark:hover:shadow-blue-950/40 transition-all duration-200 overflow-hidden group h-full">
+    <div className="flex flex-col bg-white dark:bg-slate-900/95 rounded-2xl border border-slate-200/90 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-xl dark:hover:shadow-blue-950/50 transition-all duration-300 overflow-hidden group h-full relative">
       
-      {/* Product Packaging Demo Reference Visual */}
+      {/* Product Packaging Visual */}
       <div 
         className="p-3.5 pb-0 cursor-pointer"
         onClick={() => onViewDetails(product)}
@@ -37,20 +37,27 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Main Card Content */}
       <div className="p-4 sm:p-5 flex flex-col grow">
-        {/* Category Pill & ID */}
+        {/* Category Pill & ID / Featured Tag */}
         <div className="flex items-center justify-between gap-2 mb-2">
-          <span className="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/70 text-[#002060] dark:text-blue-300 border border-blue-100 dark:border-blue-900/60">
-            {product.category}
-          </span>
-          <span className="text-[11px] font-medium text-slate-400 dark:text-slate-500">
-            Ref: {product.id}
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/80 text-[#002060] dark:text-blue-300 border border-blue-100 dark:border-blue-900/60">
+              {product.category}
+            </span>
+            {product.featured && (
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-900/60 flex items-center gap-1">
+                ⭐ Flagship
+              </span>
+            )}
+          </div>
+          <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500 shrink-0">
+            {product.id}
           </span>
         </div>
 
         {/* Brand Name */}
         <h3 
           onClick={() => onViewDetails(product)}
-          className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-[#002060] dark:group-hover:text-blue-400 transition-colors leading-snug cursor-pointer"
+          className="text-base sm:text-lg font-black text-slate-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors leading-snug cursor-pointer"
         >
           {product.brandName}
         </h3>

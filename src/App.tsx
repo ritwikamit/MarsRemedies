@@ -26,7 +26,8 @@ export function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1700);
+    // Safety fallback in case animation event is bypassed
+    const timer = setTimeout(() => setIsLoading(false), 2400);
     return () => clearTimeout(timer);
   }, []);
 
@@ -110,7 +111,7 @@ export function App() {
 
   return (
     <ThemeProvider>
-      {isLoading && <Preloader />}
+      {isLoading && <Preloader onFinish={() => setIsLoading(false)} />}
       <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-[#050b18] text-slate-900 dark:text-slate-100 font-sans antialiased transition-colors duration-300">
         {/* 1. Navbar */}
         <Navbar
